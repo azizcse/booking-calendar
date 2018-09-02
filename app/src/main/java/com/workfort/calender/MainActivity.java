@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity  implements CalendarPickerVi
         checkInTv.setText("");
         checkOutTv.setText("");
         checkOutTv.setHint("---");
-        nightCountTv.setText(String.format(getString(R.string.nights_count), 0));
+
         calendarPickerView.setDecorators(Collections.<CalendarCellDecorator>emptyList());
         Calendar nextYear = Calendar.getInstance();
         nextYear.add(Calendar.YEAR, 2);
@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity  implements CalendarPickerVi
             checkInTv.setText(dateFormat.format(date));
             checkOutTv.setHint(getString(R.string.select_date));
         }
+
+        nightCountTv.setText(String.format(getString(R.string.nights_count), selectedDateList.size()));
 
     }
 
