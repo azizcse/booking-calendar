@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.calenderlib.R;
 
@@ -106,8 +107,6 @@ public class CalendarPickerView extends ListView {
     private boolean monthsReverseOrder;
 
     private List<String> inactiveDataList = new ArrayList<>();
-
-    public static final String DATE_FORMAT = "yyyy-MM-dd";
 
     public void setInactiveDate(List<String> dateList) {
         inactiveDataList.addAll(dateList);
@@ -587,7 +586,7 @@ public class CalendarPickerView extends ListView {
         Calendar cal = Calendar.getInstance();
         cal.setTime(fromDate);
         while (cal.getTime().before(toDate)) {
-            SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Log.e("Same_range", "Range check =" + sdf.format(cal.getTime()));
             rangeList.add(sdf.format(cal.getTime()));
             cal.add(Calendar.DATE, 1);
@@ -606,7 +605,7 @@ public class CalendarPickerView extends ListView {
         public void handleClick(MonthCellDescriptor cell) {
             Date clickedDate = cell.getDate();
 
-            SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 
             String dateFormate = sdf.format(clickedDate);
@@ -965,7 +964,7 @@ public class CalendarPickerView extends ListView {
                 boolean isSelected = isCurrentMonth && containsDate(selectedCals, cal);
                 boolean isSelectable = isCurrentMonth && betweenDates(cal, minCal, maxCal) && isDateSelectable(date);
 
-                SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 Log.e("Date_f", "Date not equal= " + sdf.format(date));
                 String dateFormate = sdf.format(date);
                 if (inactiveDataList.contains(dateFormate)) {
@@ -973,6 +972,13 @@ public class CalendarPickerView extends ListView {
                 }
 
                 boolean isToday = sameDate(cal, today);
+                boolean isNextDay = isNextDay(date);
+                boolean isNextDayInactive = false;
+
+                if(!isSelectable && isNextDay){
+                    isNextDayInactive = true;
+                }
+
                 boolean isHighlighted = containsDate(highlightedCals, cal);
                 int value = cal.get(DAY_OF_MONTH);
 
@@ -989,7 +995,7 @@ public class CalendarPickerView extends ListView {
 
                 weekCells.add(
                         new MonthCellDescriptor(date, isCurrentMonth, isSelectable, isSelected, isToday,
-                                isHighlighted, value, rangeState));
+                                isHighlighted, value, rangeState, isNextDayInactive));
                 cal.add(DATE, 1);
             }
         }
@@ -1031,6 +1037,15 @@ public class CalendarPickerView extends ListView {
         return cal.get(MONTH) == selectedDate.get(MONTH)
                 && cal.get(YEAR) == selectedDate.get(YEAR)
                 && cal.get(DAY_OF_MONTH) == selectedDate.get(DAY_OF_MONTH);
+    }
+
+    public static boolean isNextDay(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return (date.after(calendar.getTime())) ? true : false;
     }
 
     private static boolean betweenDates(Calendar cal, Calendar minCal, Calendar maxCal) {

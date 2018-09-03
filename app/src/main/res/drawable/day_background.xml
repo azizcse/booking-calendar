@@ -10,5 +10,6 @@
         </shape>
     </item>
     <item android:drawable="@drawable/current_day_state" app:tsquare_state_today="true" />
+    <item android:drawable="@drawable/day_state_cross" app:tsquare_state_next_inactive_day="true" />
 
 </selector>

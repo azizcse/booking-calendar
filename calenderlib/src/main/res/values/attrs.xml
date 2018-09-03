@@ -4,6 +4,7 @@
     <attr name="android:background"/>
     <attr name="tsquare_dividerColor" format="color"/>
     <attr name="tsquare_dayBackground" format="reference"/>
+    <attr name="tsquare_next_inactive_dayBackground" format="reference"/>
     <attr name="tsquare_dayTextColor" format="color"/>
     <attr name="tsquare_titleTextColor" format="color"/>
     <attr name="tsquare_displayHeader" format="boolean"/>
@@ -14,6 +15,7 @@
     <attr name="tsquare_state_selectable" format="boolean" />
     <attr name="tsquare_state_current_month" format="boolean" />
     <attr name="tsquare_state_today" format="boolean" />
+    <attr name="tsquare_state_next_inactive_day" format="boolean" />
     <attr name="tsquare_state_range_first" format="boolean" />
     <attr name="tsquare_state_range_middle" format="boolean" />
     <attr name="tsquare_state_range_last" format="boolean" />
