@@ -3,7 +3,9 @@ package com.workfort.calender;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -62,5 +64,9 @@ public class MainActivity extends AppCompatActivity  implements CalendarPickerVi
     @Override
     public void onDateUnselected(Date date) {
 
+    }
+
+    public void onClickFabButton(View view){
+        Toast.makeText(this, "Date count ="+calendarPickerView.getSelectedDates().size(), Toast.LENGTH_SHORT).show();
     }
 }
