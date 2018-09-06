@@ -143,7 +143,7 @@
                     android:scrollbarStyle="outsideOverlay"
                     app:tsquare_dayBackground="@drawable/day_background"
                     app:tsquare_dayTextColor="@drawable/day_text_color"
-                    app:tsquare_dividerColor="@android:color/transparent"
+                    app:tsquare_dividerColor="@color/transparent_black"
                     app:tsquare_headerTextColor="@color/dateTimeRangePickerHeaderTextColor"
                     app:tsquare_titleTextColor="@color/dateTimeRangePickerTitleTextColor" />
 

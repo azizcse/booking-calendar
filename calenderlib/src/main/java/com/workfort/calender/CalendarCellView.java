@@ -20,6 +20,9 @@ public class CalendarCellView extends FrameLayout {
   private static final int[] STATE_TODAY = {
       R.attr.tsquare_state_today
   };
+  private static final int[] STATE_NEXT_INACTIVE_DAY = {
+          R.attr.tsquare_state_next_inactive_day
+  };
   private static final int[] STATE_HIGHLIGHTED = {
       R.attr.tsquare_state_highlighted
   };
@@ -39,6 +42,7 @@ public class CalendarCellView extends FrameLayout {
   private boolean isHighlighted = false;
   private RangeState rangeState = RangeState.NONE;
   private TextView dayOfMonthTextView;
+  private boolean isNextInactiveDay = false;
 
   @SuppressWarnings("UnusedDeclaration") //
   public CalendarCellView(Context context, AttributeSet attrs) {
@@ -65,6 +69,13 @@ public class CalendarCellView extends FrameLayout {
       refreshDrawableState();
     }
   }
+  public void setNextInactiveDay(boolean nextInactiveDay) {
+    if (this.isNextInactiveDay != nextInactiveDay) {
+      this.isNextInactiveDay = nextInactiveDay;
+      refreshDrawableState();
+    }
+  }
+
 
   public void setRangeState(RangeState rangeState) {
     if (this.rangeState != rangeState) {
@@ -86,6 +97,10 @@ public class CalendarCellView extends FrameLayout {
 
   public boolean isToday() {
     return isToday;
+  }
+
+  public boolean isNextInactiveDay() {
+    return isNextInactiveDay;
   }
 
   public boolean isSelectable() {
@@ -115,6 +130,10 @@ public class CalendarCellView extends FrameLayout {
     if (isToday) {
       mergeDrawableStates(drawableState, STATE_TODAY);
     }
+    if (isNextInactiveDay) {
+      mergeDrawableStates(drawableState, STATE_NEXT_INACTIVE_DAY);
+    }
+
 
     if (isHighlighted) {
       mergeDrawableStates(drawableState, STATE_HIGHLIGHTED);
